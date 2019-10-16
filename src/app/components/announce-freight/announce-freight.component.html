@@ -1,1 +1,10 @@
-<p>announce-freight works!</p>
+<h1 mat-dialog-title align="center"><img src="../../../assets/logo_monqui.JPG" width="100px"><br> Llena el formulario</h1>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="announceForm" (ngSubmit)="onSubmit()">
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-raised-button color="accent" style="width: 100%;" [mat-dialog-close]="true" cdkFocusInitial>INGRESAR</button>
+</mat-dialog-actions>
