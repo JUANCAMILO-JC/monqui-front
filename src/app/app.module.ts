@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { HomeComponent } from './components/home/home.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
 
     DialogModalComponent,
+
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   entryComponents: [
-    DialogModalComponent
+    DialogModalComponent,
+    AnnounceFreightComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

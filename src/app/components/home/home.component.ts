@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   openFromDialog() {
-    const dialogFormRef = this.formDialog.open(AnnounceFreightComponent);
+    this.formDialog.open(AnnounceFreightComponent);
   }
 
 }
