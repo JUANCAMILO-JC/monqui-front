@@ -1,3 +1,4 @@
+import { OperationType } from '../../models/operationType';
 import { Municipality } from './../../models/municipality';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
@@ -16,12 +17,17 @@ export class AnnounceFreightComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = "";
+  error = '';
 
-  private municipio: Municipality;
+// Operations types options
+public operations: OperationType[] = [
+  {name: 'EXPRESO'},
+  {name: 'CONSOLIDADO'},
+];
+  // Array whit municipality list
   myControl = new FormControl();
-
-  public options: Municipality[] = 
+  private municipio: Municipality;
+  public origen: Municipality[] = 
   [
     {
       code: 23,
@@ -2310,7 +2316,7 @@ export class AnnounceFreightComponent implements OnInit {
     },
     {
       code: 23815,
-      name: "TUCH�N",
+      name: "TUCHÓN",
       depCode: 23
     },
     {
@@ -4720,7 +4726,7 @@ export class AnnounceFreightComponent implements OnInit {
     },
     {
       code: 70221,
-      name: "COVE�AS",
+      name: "COVEÑAS",
       depCode: 70
     },
     {
@@ -5645,32 +5651,49 @@ export class AnnounceFreightComponent implements OnInit {
     }
    ]
 
-   filteredOptions: Observable<Municipality[]>;
+  public destino: Municipality[] = Object.assign([], this.origen);
+
+  filteredOrigen: Observable<Municipality[]>;
+  filteredDestino: Observable<Municipality[]>;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
   ) { }
 
+
   ngOnInit() {
     this.announceForm = this.formBuilder.group({
     });
-    this.filteredOptions = this.myControl.valueChanges
+    this.filteredOrigen = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
+        map(name => name ? this._filter(name) : this.origen.slice())
       );
+    this.filteredDestino = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filter(name) : this.destino.slice())
+    );
   }
-  displayFn(municipio?: Municipality): string | undefined {
+
+  displayFnOrigen(municipio?: Municipality): string | undefined {
+    return municipio ? municipio.name : undefined;
+  }
+  displayFnDestino(municipio?: Municipality): string | undefined {
     return municipio ? municipio.name : undefined;
   }
 
   private _filter(name: string): Municipality[] {
     const filterValue = name.toLowerCase();
 
-    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.origen.filter(origen => origen.name.toLowerCase().indexOf(filterValue) === 0);
+
   }
+
+  
   
   onSubmit(){
     
